@@ -254,7 +254,6 @@ struct FRenderStats
 };
 
 
-constexpr size_t NUM_UNLIT_INSTANCED_DRAW_MAX_INSTANCE_COUNT = 512;
 
 //
 // VQENGINE
@@ -588,7 +587,7 @@ private:
 	//
 	// RENDER HELPERS
 	//
-	void                            DrawMesh(ID3D12GraphicsCommandList* pCmd, const Mesh& mesh);
+	void                            DrawMesh(ID3D12GraphicsCommandList* pCmd, const Mesh& mesh, uint32 NumInstances = 1);
 	void                            DrawShadowViewMeshList(ID3D12GraphicsCommandList* pCmd, DynamicBufferHeap* pCBufferHeap, const FSceneShadowView::FShadowView& shadowView);
 
 	std::unique_ptr<Window>&        GetWindow(HWND hwnd);
@@ -626,7 +625,7 @@ private:
 	struct FFrameConstantBuffer2 { DirectX::XMMATRIX matModelViewProj; int iTextureConfig; int iTextureOutput; };
 	struct FFrameConstantBufferUnlit { DirectX::XMMATRIX matModelViewProj; DirectX::XMFLOAT3 color; };
 
-	struct FFrameConstantBufferUnlitInstanced { DirectX::XMMATRIX matModelViewProj[NUM_UNLIT_INSTANCED_DRAW_MAX_INSTANCE_COUNT]; DirectX::XMFLOAT3 color; };
+	struct FFrameConstantBufferUnlitInstanced { DirectX::XMMATRIX matModelViewProj[MAX_INSTANCE_COUNT__UNLIT_SHADER]; DirectX::XMFLOAT3 color; };
 
 // ------------------------------------------------------------------------------------------------------
 //
