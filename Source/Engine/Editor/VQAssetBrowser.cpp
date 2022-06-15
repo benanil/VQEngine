@@ -141,12 +141,6 @@ void AssetBrowser::DrawFolders(const std::vector<FolderTree*>& folders, int& id)
 			folderRec = folder;
 		}
 
-		if (ImGui::IsItemHovered()) {
-			ImGui::BeginTooltip();
-			ImGui::Text(folder->mName.c_str());
-			ImGui::EndTooltip();
-		}
-
 		ImGui::TextWrapped("%s", folder->mName.c_str());
 
 		ImGui::PopID();
@@ -170,13 +164,6 @@ void AssetBrowser::DrawFiles(const std::vector<FileRecord>& files, int& id) cons
 		}
 		
 		VQEditor::GUI::DragUIElementString(file.mPath.c_str(), file.mExtension.c_str(), file.mTexture);
-		
-		if (ImGui::IsItemHovered())
-		{
-			ImGui::BeginTooltip();
-			ImGui::Text(file.mName.c_str());
-			ImGui::EndTooltip();
-		}
 
 		// ImGui::TextWrapped("%s", file.name.substr(0, std::min<int>(10, file.name.size())).c_str());
 		ImGui::TextWrapped("%s", file.mName.c_str());
@@ -266,6 +253,7 @@ void AssetBrowser::DrawWindow()
 		ImGui::BeginChild("resource-file-folder-view-container");
 		float regionAvail = ImGui::GetContentRegionAvail().x;
 		{
+			ImGui::Text(mCurrentPath.u8string().c_str());
 			if (VQEditor::GUI::IconButton(ICON_FA_ARROW_LEFT) && mpCurrentTree->mpParent) {
 				mCurrentPath = mCurrentPath.parent_path();
 				mpCurrentTree = mpCurrentTree->mpParent;
